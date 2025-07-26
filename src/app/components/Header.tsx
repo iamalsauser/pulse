@@ -1,91 +1,137 @@
-"use client";
-import { Search, ChevronDown, Volume2, VolumeX, Settings, Star, Bell, User } from "lucide-react";
-import React, { useState } from "react";
+"use client"
 
-const Header: React.FC = () => {
-  const [searchTerm, setSearchTerm] = useState("");
-  
+import { memo } from "react"
+import { Search, Star, Bell, ChevronDown, User } from "lucide-react"
+import { Button } from "./ui/button"
+import { Input } from "./ui/input"
+
+const navigationItems = [
+  { name: "Discover", active: false },
+  { name: "Pulse", active: true },
+  { name: "Trackers", active: false },
+  { name: "Perpetuals", active: false },
+  { name: "Yield", active: false },
+  { name: "Portfolio", active: false },
+  { name: "Rewards", active: false },
+]
+
+export const Header = memo(() => {
   return (
-    <div className="flex items-center justify-between px-8 py-4 border-b border-[#2A2A2A] sticky top-0 z-40 bg-[#0A0A0A]/90 backdrop-blur-sm">
+    <header className="flex items-center justify-between px-4 py-2.5 bg-[#0a0a0a] border-b border-gray-800">
       {/* Left Side - Logo and Navigation */}
-      <div className="flex items-center space-x-8">
+      <div className="flex items-center space-x-6">
+        {/* Logo */}
         <div className="flex items-center space-x-2">
-          <h1 className="text-2xl font-bold text-white">AXIOM Pro</h1>
+          <div className="w-5 h-5 bg-white triangle-logo" />
+          <span className="text-lg font-bold text-white">AXIOM</span>
+          <span className="text-xs text-gray-400 font-medium">Pro</span>
         </div>
-        
-        {/* Navigation Links */}
-        <nav className="flex items-center space-x-6">
-          <a href="#" className="text-[#9CA3AF] hover:text-white transition-colors text-sm font-medium">
-            Discover
-          </a>
-          <a href="#" className="text-[#3B82F6] border-b-2 border-[#3B82F6] pb-1 text-sm font-medium">
-            Pulse
-          </a>
-          <a href="#" className="text-[#9CA3AF] hover:text-white transition-colors text-sm font-medium">
-            Trackers
-          </a>
-          <a href="#" className="text-[#9CA3AF] hover:text-white transition-colors text-sm font-medium">
-            Perpetuals
-          </a>
-          <a href="#" className="text-[#9CA3AF] hover:text-white transition-colors text-sm font-medium">
-            Yield
-          </a>
-          <a href="#" className="text-[#9CA3AF] hover:text-white transition-colors text-sm font-medium">
-            Portfolio
-          </a>
-          <a href="#" className="text-[#9CA3AF] hover:text-white transition-colors text-sm font-medium">
-            Rewards
-          </a>
+
+        {/* Navigation */}
+        <nav className="flex items-center space-x-1">
+          {navigationItems.map((item) => (
+            <Button
+              key={item.name}
+              variant="ghost"
+              size="sm"
+              className={`text-sm font-medium px-3 py-1.5 h-8 rounded-full transition-all duration-200 ${
+                item.active
+                  ? "bg-gray-800 text-blue-400 hover:text-blue-400 hover:bg-blue-500/10"
+                  : "text-gray-300 hover:text-blue-400 hover:bg-blue-500/10"
+              }`}
+            >
+              {item.name}
+            </Button>
+          ))}
         </nav>
       </div>
-      
-      {/* Right Side - Actions and Controls */}
-      <div className="flex items-center space-x-4">
+
+      {/* Right Side - Search, Actions, User */}
+      <div className="flex items-center space-x-3">
         {/* Search Bar */}
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#9CA3AF] w-4 h-4" />
-          <input
-            placeholder="Search tokens..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-10 bg-[#1A1A1A] border border-[#2A2A2A] text-white placeholder:text-[#9CA3AF] w-64 px-3 py-2 rounded-lg text-sm focus:outline-none focus:border-[#3B82F6]"
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+          <Input
+            placeholder="Search by token or CA..."
+            className="pl-10 pr-8 py-2 w-64 text-sm bg-gray-900 border-gray-700 text-white placeholder-gray-400 h-9 rounded-full focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all duration-200"
           />
+          <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-xs text-gray-500 font-mono">/</span>
         </div>
-        
-        {/* Deposit Button */}
-        <button className="bg-[#3B82F6] hover:bg-[#2563EB] text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
-          Deposit
-        </button>
-        
-        {/* Icons */}
-        <div className="flex items-center space-x-3">
-          <Star className="w-5 h-5 text-[#9CA3AF] cursor-pointer hover:text-white transition-colors" />
-          <Bell className="w-5 h-5 text-[#9CA3AF] cursor-pointer hover:text-white transition-colors" />
-          
-          {/* Display Dropdown */}
-          <div className="flex items-center space-x-2 bg-[#1A1A1A] rounded-lg px-3 py-2 cursor-pointer hover:bg-[#2A2A2A] transition-colors">
-            <span className="text-sm text-[#9CA3AF]">Display</span>
-            <ChevronDown className="w-4 h-4 text-[#9CA3AF]" />
-          </div>
-          
-          {/* Volume Controls */}
-          <Volume2 className="w-5 h-5 text-[#9CA3AF] cursor-pointer hover:text-white transition-colors" />
-          <VolumeX className="w-5 h-5 text-[#9CA3AF] cursor-pointer hover:text-white transition-colors" />
-          
-          {/* User Icon */}
-          <User className="w-5 h-5 text-[#9CA3AF] cursor-pointer hover:text-white transition-colors" />
-          
-          {/* Numerical Display */}
-          <div className="flex items-center space-x-2 text-sm text-[#9CA3AF]">
-            <span>1</span>
-            <span>=</span>
-            <span>0</span>
-            <ChevronDown className="w-4 h-4" />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
 
-export default Header; 
+        {/* Deposit Button */}
+        <Button
+          variant="default"
+          size="sm"
+          className="bg-blue-600 hover:bg-blue-700 border-0 text-white text-sm font-medium px-4 py-2 h-9 rounded-full transition-all duration-200 shadow-sm hover:shadow-md"
+        >
+          Deposit
+        </Button>
+
+        {/* Action Icons */}
+        <div className="flex items-center space-x-2">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="w-8 h-8 text-gray-400 hover:text-blue-400 hover:bg-blue-500/10 transition-all duration-200 rounded-full bg-gray-800"
+          >
+            <Star className="w-4 h-4" />
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="w-8 h-8 text-gray-400 hover:text-blue-400 hover:bg-blue-500/10 transition-all duration-200 rounded-full bg-gray-800"
+          >
+            <Bell className="w-4 h-4" />
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="w-8 h-8 text-gray-400 hover:text-blue-400 hover:bg-blue-500/10 transition-all duration-200 rounded-full bg-gray-800 flex items-center justify-center"
+          >
+            <div className="flex items-center space-x-1">
+              <div className="w-3 h-3 border border-gray-400 rounded-sm" />
+              <span className="text-xs">0</span>
+            </div>
+          </Button>
+        </div>
+
+        {/* Wallet/Balance Section */}
+        <div className="flex items-center space-x-2 bg-gray-800 rounded-full px-3 py-1">
+          {/* Balance Display */}
+          <div className="flex items-center space-x-2 text-sm">
+            <div className="flex items-center space-x-1">
+              <div className="w-2 h-2 bg-green-400 rounded-full" />
+              <span className="text-white font-medium">0</span>
+            </div>
+            <div className="flex items-center space-x-1">
+              <div className="w-2 h-2 bg-blue-400 rounded-full" />
+              <span className="text-white font-medium">0</span>
+            </div>
+          </div>
+
+          {/* Dropdown Button */}
+          <Button
+            variant="ghost"
+            size="sm"
+            className="text-gray-400 hover:text-blue-400 hover:bg-blue-500/10 transition-all duration-200 px-1 py-1 h-6 rounded"
+          >
+            <ChevronDown className="w-3 h-3" />
+          </Button>
+        </div>
+
+        {/* User Profile */}
+        <Button
+          variant="ghost"
+          size="icon"
+          className="w-8 h-8 text-gray-400 hover:text-blue-400 hover:bg-blue-500/10 transition-all duration-200 rounded-full bg-gray-800"
+        >
+          <User className="w-4 h-4" />
+        </Button>
+      </div>
+    </header>
+  )
+})
+
+Header.displayName = "Header"
+
+export default Header 

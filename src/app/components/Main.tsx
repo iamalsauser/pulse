@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useMemo } from 'react';
-import { Search, TrendingUp, TrendingDown, Eye, MessageCircle, Users, Volume2, VolumeX, Settings, Star, Bell, User, ChevronDown, Zap, Globe, ChevronUp } from 'lucide-react';
+import { Search, TrendingUp, TrendingDown, Eye, MessageCircle, Users, Volume2, VolumeX, Settings, Star, Bell, User, ChevronDown, Zap, Globe, ChevronUp, BarChart3 } from 'lucide-react';
 
 // Mock data for demonstration
 const mockTokens = [
@@ -162,16 +162,23 @@ const NewPairsTokenCard: React.FC<{ token: EnhancedToken }> = ({ token }) => {
   });
   const stats = getRandomStats();
   return (
-    <div className="bg-[#2A2A2A] border border-[#3A3A3A] rounded-xl p-4 hover:bg-[#3A3A3A] transition-all duration-200">
-      <div className="flex items-start gap-4">
-        {/* Token Image */}
+    <div className="border border-[#3A3A3A] rounded-lg p-3 hover:bg-[#3A3A3A] transition-all duration-200 mb-3 min-w-0" style={{backgroundColor: '#101114'}}>
+      <div className="flex items-start gap-3 min-w-0">
+        {/* Token Image with Badges - Square Frame */}
         <div className="relative flex-shrink-0">
           <img
-            src={token.image}
+            src={`https://picsum.photos/64/64?random=${token.id}`}
             alt={token.name}
-            className="w-14 h-14 rounded-full object-cover border-2 border-[#3A3A3A]"
+            className="w-14 h-14 rounded-lg object-cover border border-[#3A3A3A]"
           />
-          <div className="absolute -bottom-1 -right-1 bg-[#F97316] rounded-full w-5 h-5 flex items-center justify-center border border-[#2A2A2A]">
+          {/* Action Badges around token icon */}
+          <div className="absolute -top-1 -left-1 w-4 h-4 bg-[#2A2A2A] rounded flex items-center justify-center">
+            <span className="text-white text-xs">👁️</span>
+          </div>
+          <div className="absolute -top-1 left-5 w-4 h-4 bg-[#2A2A2A] rounded flex items-center justify-center">
+            <span className="text-white text-xs">👨‍🍳</span>
+          </div>
+          <div className="absolute -bottom-1 -right-1 bg-[#F97316] rounded-full w-4 h-4 flex items-center justify-center border border-[#2A2A2A]">
             <span className="text-white text-xs">🔥</span>
           </div>
         </div>
@@ -179,74 +186,73 @@ const NewPairsTokenCard: React.FC<{ token: EnhancedToken }> = ({ token }) => {
         {/* Token Info and Stats */}
         <div className="flex-1 min-w-0">
           {/* Header row */}
-          <div className="flex items-start justify-between mb-3">
-            <div className="flex-1">
+          <div className="flex items-start justify-between mb-2">
+            <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-1">
-                <h3 className="text-white font-semibold text-base">{token.name}</h3>
-                <span className="text-[#9CA3AF] text-sm">{token.symbol}</span>
-                <span className="bg-[#3A3A3A] text-[#9CA3AF] px-1.5 py-0.5 rounded text-xs">📋</span>
+                <h3 className="text-white font-semibold text-base truncate">{token.name}</h3>
+                <span className="text-[#9CA3AF] text-sm truncate">{token.symbol}</span>
+                <span className="bg-[#3A3A3A] text-[#9CA3AF] px-1 py-0.5 rounded text-xs flex-shrink-0">📋</span>
               </div>
               <div className="text-[#10B981] text-sm font-medium">{token.age}s</div>
             </div>
             
-            <div className="text-right">
-              <div className="text-[#3B82F6] font-bold text-base">MC ${token.mcValue}</div>
-              <div className="text-white text-base font-medium">v ${token.priceValue}</div>
+            <div className="text-right flex-shrink-0 ml-2">
+              <div className="text-[#3B82F6] font-bold text-sm">MC ${token.mcValue}</div>
+              <div className="text-white text-sm font-medium">V ${token.priceValue}</div>
             </div>
           </div>
 
-          {/* Icon row */}
-          <div className="flex items-center gap-4 mb-3 text-sm text-[#9CA3AF]">
-            <div className="flex items-center gap-2">
-              <span>🪶</span>
-              <span>👑</span>
-              <Search className="w-4 h-4" />
-              <Users className="w-4 h-4" />
-              <span className="font-medium">{stats.users}</span>
-              <span>📈 {stats.upvotes}</span>
-              <span>📉 {stats.downvotes}</span>
+          {/* Metrics row - Os, cat, search, users, chart, trophy, crown */}
+          <div className="flex items-center gap-2 mb-2 text-xs text-[#9CA3AF]">
+            <div className="flex items-center gap-1 flex-wrap">
+              <span className="text-[#10B981] font-medium">Os</span>
+              <span>🐱</span>
+              <span>🔍</span>
+              <span>👥 {stats.users}</span>
+              <span>📊 {stats.upvotes}</span>
+              <span>🏆 {stats.downvotes}</span>
               <span>👑 {stats.crown}</span>
             </div>
           </div>
 
-          {/* Performance indicators */}
-          <div className="grid grid-cols-6 gap-2 mb-3">
-            <div className="flex items-center gap-1">
-              <span className="w-2 h-2 bg-[#EF4444] rounded-full"></span>
-              <span className="text-[#EF4444] text-sm font-medium">{token.priceChange24h}%</span>
+          {/* Percentage indicator cards */}
+          <div className="flex items-center gap-1 mb-2 flex-wrap">
+            <div className="bg-[#2A2A2A] rounded px-1.5 py-0.5 flex items-center gap-1 border border-[#3A3A3A]">
+              <span className="text-[#EF4444] text-xs">👤</span>
+              <span className="text-[#EF4444] text-xs">{token.priceChange24h}%</span>
             </div>
-            <div className="flex items-center gap-1">
-              <span className="w-2 h-2 bg-[#10B981] rounded-full"></span>
-              <span className="text-[#10B981] text-sm font-medium">{Math.abs(token.change1h)}%</span>
-              <span className="text-[#9CA3AF] text-xs">1mo</span>
+            <div className="bg-[#2A2A2A] rounded px-1.5 py-0.5 flex items-center gap-1 border border-[#3A3A3A]">
+              <span className="text-[#EF4444] text-xs">👨‍🍳</span>
+              <span className="text-[#EF4444] text-xs">{token.priceChange24h}%</span>
+              <span className="text-[#9CA3AF] text-xs">10d</span>
             </div>
-            <div className="flex items-center gap-1">
-              <span className="w-2 h-2 bg-[#EF4444] rounded-full"></span>
-              <span className="text-[#EF4444] text-sm font-medium">{Math.abs(token.change5m)}%</span>
+            <div className="bg-[#2A2A2A] rounded px-1.5 py-0.5 flex items-center gap-1 border border-[#3A3A3A]">
+              <span className="text-[#EF4444] text-xs">🎯</span>
+              <span className="text-[#EF4444] text-xs">{token.priceChange24h}%</span>
             </div>
-            <div className="flex items-center gap-1">
-              <span className="w-2 h-2 bg-[#10B981] rounded-full"></span>
-              <span className="text-[#10B981] text-sm font-medium">0%</span>
+            <div className="bg-[#2A2A2A] rounded px-1.5 py-0.5 flex items-center gap-1 border border-[#3A3A3A]">
+              <span className="text-[#10B981] text-xs">👻</span>
+              <span className="text-[#10B981] text-xs">0%</span>
             </div>
-            <div className="flex items-center gap-1">
-              <span className="w-2 h-2 bg-[#10B981] rounded-full"></span>
-              <span className="text-[#10B981] text-sm font-medium">0%</span>
+            <div className="bg-[#2A2A2A] rounded px-1.5 py-0.5 flex items-center gap-1 border border-[#3A3A3A]">
+              <span className="text-[#10B981] text-xs">🧊</span>
+              <span className="text-[#10B981] text-xs">0%</span>
             </div>
           </div>
 
-          {/* Bottom info */}
-          <div className="flex items-center justify-between text-sm">
-            <div className="text-[#9CA3AF] font-medium">{token.creator}</div>
-            <div className="flex items-center gap-4 text-[#9CA3AF]">
-              <span className="flex items-center gap-2">
+          {/* Bottom info bar */}
+          <div className="flex items-center justify-between text-xs">
+            <div className="text-[#9CA3AF] font-medium truncate">{token.creator}</div>
+            <div className="flex items-center gap-2 text-[#9CA3AF] flex-shrink-0">
+              <span className="flex items-center gap-1">
                 <span className="font-medium">F</span>
-                <div className="w-8 h-1 bg-[#4B5563] rounded-full">
+                <span className="text-purple-400">{stats.f}</span>
+                <div className="w-6 h-1 bg-[#4B5563] rounded-full">
                   <div className="w-1/3 h-full bg-[#3B82F6] rounded-full"></div>
                 </div>
-                <span className="font-medium">{stats.f}</span>
               </span>
               <span className="font-medium">TX {stats.tx}</span>
-              <div className="w-8 h-1 bg-[#4B5563] rounded-full">
+              <div className="w-6 h-1 bg-[#4B5563] rounded-full">
                 <div className="w-2/3 h-full bg-[#10B981] rounded-full"></div>
               </div>
             </div>
@@ -370,31 +376,42 @@ interface ColumnSectionProps {
 
 const ColumnSection: React.FC<ColumnSectionProps> = ({ title, tokens, count, icon: Icon, isNewPairs = false }) => {
   return (
-    <div className="flex-1 h-[588px] flex flex-col bg-[#1A1A1A]">
-      {/* Column Header - Fixed at top */}
-      <div className="flex items-center justify-between px-6 py-4 bg-[#1A1A1A] border-b border-[#2A2A2A] flex-shrink-0">
-        <div className="flex items-center space-x-3">
-          <Zap className="w-5 h-5 text-[#3B82F6]" />
-          <h3 className="text-white font-semibold text-lg">{title}</h3>
-          <span className="bg-[#2A2A2A] text-[#9CA3AF] px-2 py-1 rounded-md text-sm font-medium">{count}</span>
+    <div className="flex-1 h-full flex flex-col overflow-hidden" style={{backgroundColor: '#101114'}}>
+      {/* Column Header - Updated to match desired design */}
+      <div className="flex items-center justify-between px-4 py-3 border-b border-[#2A2A2A] flex-shrink-0" style={{backgroundColor: '#101114'}}>
+        <div className="flex items-center space-x-2">
+          <span className="text-white font-medium text-sm">{title}</span>
         </div>
         
         <div className="flex items-center space-x-3">
-          <div className="flex items-center space-x-2 text-sm">
+          {/* Lightning bolt icon */}
+          <Zap className="w-4 h-4 text-[#F59E0B]" />
+          
+          {/* Count */}
+          <span className="text-[#9CA3AF] text-sm">{count}</span>
+          
+          {/* Menu icon */}
+          <BarChart3 className="w-4 h-4 text-[#9CA3AF]" />
+          
+          {/* P1 P2 P3 buttons */}
+          <div className="flex items-center space-x-1">
             <span className="bg-[#3B82F6] text-white px-2 py-1 rounded text-xs font-medium">P1</span>
-            <span className="text-[#9CA3AF] px-2 py-1">P2</span>
-            <span className="text-[#9CA3AF] px-2 py-1">P3</span>
+            <span className="text-[#9CA3AF] px-1 py-1 text-xs">P2</span>
+            <span className="text-[#9CA3AF] px-1 py-1 text-xs">P3</span>
           </div>
+          
+          {/* Sort icon */}
           <ChevronUp className="w-4 h-4 text-[#9CA3AF]" />
         </div>
       </div>
       
-      {/* Token List - Scrollable content area */}
-      <div className="flex-1 overflow-y-auto" style={{
+      {/* Token List - Scrollable content area with responsive sizing */}
+      <div className="flex-1 overflow-y-auto overflow-x-hidden" style={{
         scrollbarWidth: 'thin',
-        scrollbarColor: '#4B5563 #1A1A1A'
+        scrollbarColor: '#4B5563 #101114',
+        maxHeight: 'calc(100% - 60px)' // Account for header height
       }}>
-        <div className="p-4 space-y-3">
+        <div className="p-4 space-y-3 min-w-0">
           {tokens.map((token) => (
             isNewPairs ? 
               <NewPairsTokenCard key={token.id} token={token} /> :
@@ -413,6 +430,7 @@ const ColumnSection: React.FC<ColumnSectionProps> = ({ title, tokens, count, ico
 
 const Main: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [zoomLevel, setZoomLevel] = useState(1);
   const enhancedTokens = useMemo(() => enhanceTokenData(mockTokens), []);
   const categorizedTokens = useMemo(() => {
     const filtered = enhancedTokens.filter(token =>
@@ -425,25 +443,92 @@ const Main: React.FC = () => {
       migrated: filtered.filter(token => token.category === 'migrated')
     };
   }, [enhancedTokens, searchTerm]);
+
+  // Detect zoom level changes
+  useEffect(() => {
+    const updateZoomLevel = () => {
+      const zoom = window.visualViewport?.scale || window.devicePixelRatio || 1;
+      setZoomLevel(zoom);
+    };
+
+    // Initial zoom level
+    updateZoomLevel();
+
+    // Listen for zoom changes
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', updateZoomLevel);
+    } else {
+      window.addEventListener('resize', updateZoomLevel);
+    }
+
+    return () => {
+      if (window.visualViewport) {
+        window.visualViewport.removeEventListener('resize', updateZoomLevel);
+      } else {
+        window.removeEventListener('resize', updateZoomLevel);
+      }
+    };
+  }, []);
+
+  // Calculate inverse scale for internal content
+  const contentScale = 1 / zoomLevel;
+  
   return (
-    <div className="min-h-screen bg-[#0A0A0A] text-white pt-[72px] pb-[56px] flex flex-col items-center">
+    <div className="min-h-screen bg-[#0A0A0A] text-white pb-[56px] flex flex-col items-center">
+      {/* Controls Section - Above Card Frame */}
+      <div className="w-full max-w-7xl flex justify-start mb-4 px-8 mt-4">
+        <div className="flex items-center space-x-3">
+          {/* Display Dropdown */}
+          <div className="flex items-center space-x-2 bg-[#1A1A1A] rounded-lg px-3 py-2 cursor-pointer hover:bg-[#2A2A2A] transition-colors">
+            <span className="text-sm text-[#9CA3AF]">Display</span>
+            <ChevronDown className="w-4 h-4 text-[#9CA3AF]" />
+          </div>
+          
+          {/* Volume Controls */}
+          <div className="flex items-center space-x-2 bg-[#1A1A1A] rounded-lg px-3 py-2 cursor-pointer hover:bg-[#2A2A2A] transition-colors">
+            <Volume2 className="w-4 h-4 text-[#9CA3AF] hover:text-white transition-colors" />
+          </div>
+          <div className="flex items-center space-x-2 bg-[#1A1A1A] rounded-lg px-3 py-2 cursor-pointer hover:bg-[#2A2A2A] transition-colors">
+            <VolumeX className="w-4 h-4 text-[#9CA3AF] hover:text-white transition-colors" />
+          </div>
+          
+          {/* Numerical Display */}
+          <div className="flex items-center space-x-2 bg-[#1A1A1A] rounded-lg px-3 py-2 cursor-pointer hover:bg-[#2A2A2A] transition-colors">
+            <span className="text-sm text-[#9CA3AF]">1</span>
+            <span className="text-sm text-[#9CA3AF]">=</span>
+            <span className="text-sm text-[#9CA3AF]">0</span>
+            <ChevronDown className="w-4 h-4 text-[#9CA3AF]" />
+          </div>
+        </div>
+      </div>
+      
       {/* Card-like Frame for Columns */}
-      <div className="flex justify-center w-full" style={{marginBottom: '26px', marginTop: '32px'}}>
+      <div className="flex justify-center w-full overflow-hidden" style={{marginBottom: '26px', marginTop: '0px'}}>
         <div
-          className="bg-[#1A1A1A] rounded-2xl shadow-2xl border border-[#2A2A2A] flex overflow-hidden"
+          className="rounded-2xl shadow-2xl border border-[#1A1A1A] flex overflow-hidden"
           style={{ 
-            width: '1392px', 
-            height: '588px', 
-            maxWidth: '1392px', 
-            minWidth: '1392px', 
-            minHeight: '588px', 
+            width: 'min(95vw, 1752px)',
+            height: 'min(85vh, 791px)',
+            maxWidth: '95vw',
+            maxHeight: '85vh',
+            minWidth: '1200px',
+            minHeight: '600px',
             position: 'relative', 
             zIndex: 10,
-            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)'
+            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
+            backgroundColor: '#101114'
           }}
         >
-          <div className="flex w-full h-full">
-            <div className="flex-none w-[462px] h-[588px] border-r border-[#2A2A2A]">
+          <div 
+            className="flex w-full h-full"
+            style={{
+              transform: `scale(${contentScale})`,
+              transformOrigin: 'top left',
+              width: `${100 / contentScale}%`,
+              height: `${100 / contentScale}%`
+            }}
+          >
+            <div className="flex-1 h-full" style={{borderRight: '1px solid rgb(34,36,45)'}}>
               <ColumnSection
                 title="New Pairs"
                 tokens={categorizedTokens.new}
@@ -452,7 +537,7 @@ const Main: React.FC = () => {
                 isNewPairs={true}
               />
             </div>
-            <div className="flex-none w-[462px] h-[588px] border-r border-[#2A2A2A]">
+            <div className="flex-1 h-full" style={{borderRight: '1px solid rgb(34,36,45)'}}>
               <ColumnSection
                 title="Final Stretch"
                 tokens={categorizedTokens.final}
@@ -461,7 +546,7 @@ const Main: React.FC = () => {
                 isNewPairs={true}
               />
             </div>
-            <div className="flex-none w-[462px] h-[588px]">
+            <div className="flex-1 h-full">
               <ColumnSection
                 title="Migrated"
                 tokens={categorizedTokens.migrated}
