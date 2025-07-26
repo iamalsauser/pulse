@@ -1,137 +1,89 @@
-"use client"
+"use client";
+import React from "react";
+import { Search, Star, Bell, MessageSquare, User } from "lucide-react";
 
-import { memo } from "react"
-import { Search, Star, Bell, ChevronDown, User } from "lucide-react"
-import { Button } from "./ui/button"
-import { Input } from "./ui/input"
+const NAV_ITEMS = [
+  "Discover", "Pulse", "Trackers", "Perpetuals", "Yield", "Portfolio", "Rewards"
+];
 
-const navigationItems = [
-  { name: "Discover", active: false },
-  { name: "Pulse", active: true },
-  { name: "Trackers", active: false },
-  { name: "Perpetuals", active: false },
-  { name: "Yield", active: false },
-  { name: "Portfolio", active: false },
-  { name: "Rewards", active: false },
-]
-
-export const Header = memo(() => {
+export default function Header() {
   return (
-    <header className="flex items-center justify-between px-4 py-2.5 bg-[#0a0a0a] border-b border-gray-800">
-      {/* Left Side - Logo and Navigation */}
-      <div className="flex items-center space-x-6">
-        {/* Logo */}
-        <div className="flex items-center space-x-2">
-          <div className="w-5 h-5 bg-white triangle-logo" />
-          <span className="text-lg font-bold text-white">AXIOM</span>
-          <span className="text-xs text-gray-400 font-medium">Pro</span>
-        </div>
-
-        {/* Navigation */}
-        <nav className="flex items-center space-x-1">
-          {navigationItems.map((item) => (
-            <Button
-              key={item.name}
-              variant="ghost"
-              size="sm"
-              className={`text-sm font-medium px-3 py-1.5 h-8 rounded-full transition-all duration-200 ${
-                item.active
-                  ? "bg-gray-800 text-blue-400 hover:text-blue-400 hover:bg-blue-500/10"
-                  : "text-gray-300 hover:text-blue-400 hover:bg-blue-500/10"
-              }`}
-            >
-              {item.name}
-            </Button>
-          ))}
-        </nav>
-      </div>
-
-      {/* Right Side - Search, Actions, User */}
-      <div className="flex items-center space-x-3">
-        {/* Search Bar */}
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
-          <Input
-            placeholder="Search by token or CA..."
-            className="pl-10 pr-8 py-2 w-64 text-sm bg-gray-900 border-gray-700 text-white placeholder-gray-400 h-9 rounded-full focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all duration-200"
-          />
-          <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-xs text-gray-500 font-mono">/</span>
-        </div>
-
-        {/* Deposit Button */}
-        <Button
-          variant="default"
-          size="sm"
-          className="bg-blue-600 hover:bg-blue-700 border-0 text-white text-sm font-medium px-4 py-2 h-9 rounded-full transition-all duration-200 shadow-sm hover:shadow-md"
-        >
-          Deposit
-        </Button>
-
-        {/* Action Icons */}
-        <div className="flex items-center space-x-2">
-          <Button
-            variant="ghost"
-            size="icon"
-            className="w-8 h-8 text-gray-400 hover:text-blue-400 hover:bg-blue-500/10 transition-all duration-200 rounded-full bg-gray-800"
-          >
-            <Star className="w-4 h-4" />
-          </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="w-8 h-8 text-gray-400 hover:text-blue-400 hover:bg-blue-500/10 transition-all duration-200 rounded-full bg-gray-800"
-          >
-            <Bell className="w-4 h-4" />
-          </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="w-8 h-8 text-gray-400 hover:text-blue-400 hover:bg-blue-500/10 transition-all duration-200 rounded-full bg-gray-800 flex items-center justify-center"
-          >
-            <div className="flex items-center space-x-1">
-              <div className="w-3 h-3 border border-gray-400 rounded-sm" />
-              <span className="text-xs">0</span>
-            </div>
-          </Button>
-        </div>
-
-        {/* Wallet/Balance Section */}
-        <div className="flex items-center space-x-2 bg-gray-800 rounded-full px-3 py-1">
-          {/* Balance Display */}
-          <div className="flex items-center space-x-2 text-sm">
-            <div className="flex items-center space-x-1">
-              <div className="w-2 h-2 bg-green-400 rounded-full" />
-              <span className="text-white font-medium">0</span>
-            </div>
-            <div className="flex items-center space-x-1">
-              <div className="w-2 h-2 bg-blue-400 rounded-full" />
-              <span className="text-white font-medium">0</span>
-            </div>
+    <header className="sticky top-0 z-50 w-full bg-black border-b border-gray-800">
+      <div className="flex items-center justify-between py-2 pl-3 pr-2 sm:px-4 lg:px-6 min-h-[60px] max-h-[80px]">
+        {/* ===== LEFT: LOGO + NAV ===== */}
+        <div className="flex items-center min-w-0 flex-1">
+          {/* Logo and Brand */}
+          <div className="flex items-center space-x-1 sm:space-x-2 flex-shrink-0 select-none">
+            <div className="w-5 h-5 sm:w-6 sm:h-6 bg-white rounded-xs rotate-45"></div>
+            <span className="font-bold text-base sm:text-lg lg:text-xl tracking-tight truncate">AXIOM</span>
+            <span className="bg-gray-700 text-gray-300 rounded px-1 sm:px-2 py-0.5 text-[0.7em] font-medium ml-0.5">Pro</span>
           </div>
 
-          {/* Dropdown Button */}
-          <Button
-            variant="ghost"
-            size="sm"
-            className="text-gray-400 hover:text-blue-400 hover:bg-blue-500/10 transition-all duration-200 px-1 py-1 h-6 rounded"
-          >
-            <ChevronDown className="w-3 h-3" />
-          </Button>
+          {/* Navigation – scrollable if overflow */}
+          <nav className="hidden md:flex items-center min-w-0 ml-6 space-x-3 sm:space-x-4 lg:space-x-6 overflow-x-auto">
+            {NAV_ITEMS.map((item) => (
+              <a
+                key={item}
+                href="#"
+                className={`text-sm lg:text-base truncate whitespace-nowrap transition-colors
+                  ${item === "Pulse" 
+                    ? "text-blue-400 font-medium hover:text-blue-300" 
+                    : "text-gray-300 hover:text-white"}
+                `}
+              >
+                {item}
+              </a>
+            ))}
+          </nav>
         </div>
 
-        {/* User Profile */}
-        <Button
-          variant="ghost"
-          size="icon"
-          className="w-8 h-8 text-gray-400 hover:text-blue-400 hover:bg-blue-500/10 transition-all duration-200 rounded-full bg-gray-800"
-        >
-          <User className="w-4 h-4" />
-        </Button>
+        {/* ===== RIGHT: SEARCH + CONTROLS ===== */}
+        <div className="flex items-center flex-shrink-0 space-x-2 sm:space-x-3 lg:space-x-4 min-w-0">
+          {/* Search Bar */}
+          <div className="relative hidden sm:block w-[180px] md:w-[220px] lg:w-[240px]">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
+            <input
+              type="text"
+              placeholder="Search by token or CA..."
+              className="bg-[#191919] border border-gray-700 rounded-lg pl-9 pr-6 py-[7.5px] text-xs sm:text-sm text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 w-full"
+            />
+            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 text-xs font-medium select-none">/</span>
+          </div>
+
+          {/* Deposit Button */}
+          <button className="bg-blue-600 hover:bg-blue-700 text-white rounded-lg px-2.5 py-2 font-medium text-sm min-w-[42px] h-9 flex items-center justify-center transition-colors">
+            <span className="hidden sm:inline">Deposit</span>
+            <span className="sm:hidden text-lg leading-none">+</span>
+          </button>
+
+          {/* Icon Cluster */}
+          <div className="flex items-center space-x-2 sm:space-x-2.5 lg:space-x-3 flex-shrink-0">
+            {/* Star */}
+            <button className="p-1 rounded hover:bg-gray-800 text-gray-400 hover:text-white transition-colors flex-shrink-0">
+              <Star className="w-5 h-5" />
+            </button>
+            {/* Bell */}
+            <button className="p-1 rounded hover:bg-gray-800 text-gray-400 hover:text-white transition-colors flex-shrink-0">
+              <Bell className="w-5 h-5" />
+            </button>
+            {/* Message (with badge) */}
+            <button className="relative p-1 rounded hover:bg-gray-800 text-gray-400 hover:text-white transition-colors flex-shrink-0">
+              <MessageSquare className="w-5 h-5" />
+              <span className="absolute -top-1 -right-1 bg-gray-600 text-white text-[10px] rounded-full w-4 h-4 flex items-center justify-center font-semibold leading-none">0</span>
+            </button>
+            {/* Portfolio (gray circle with 0) */}
+            <button className="relative p-0.5 flex items-center justify-center text-gray-400 hover:text-white transition-colors flex-shrink-0">
+              <div className="w-5 h-5 bg-gray-600 rounded-full flex items-center justify-center">
+                <span className="text-[10px] leading-none font-semibold text-white">0</span>
+              </div>
+            </button>
+            {/* User */}
+            <button className="p-1 rounded hover:bg-gray-800 text-gray-400 hover:text-white transition-colors flex-shrink-0">
+              <User className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
       </div>
     </header>
-  )
-})
-
-Header.displayName = "Header"
-
-export default Header 
+  );
+}

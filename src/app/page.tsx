@@ -1,5 +1,6 @@
-import Main from "./components/Main";
+import React from "react";
+import AppLayout from "./components/AppLayout";
 
-export default function Home() {
-  return <Main />;
+export default function Page() {
+  return <AppLayout />;
 }
