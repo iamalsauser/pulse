@@ -162,81 +162,92 @@ const NewPairsTokenCard: React.FC<{ token: EnhancedToken }> = ({ token }) => {
   });
   const stats = getRandomStats();
   return (
-    <div className="bg-gray-900 border border-gray-700 rounded-lg p-4 mb-4 hover:bg-gray-800 transition-all">
+    <div className="bg-[#2A2A2A] border border-[#3A3A3A] rounded-xl p-4 hover:bg-[#3A3A3A] transition-all duration-200">
       <div className="flex items-start gap-4">
-        <div className="relative">
+        {/* Token Image */}
+        <div className="relative flex-shrink-0">
           <img
             src={token.image}
             alt={token.name}
-            className="w-16 h-16 rounded-lg object-cover"
+            className="w-14 h-14 rounded-full object-cover border-2 border-[#3A3A3A]"
           />
-          <div className="absolute -bottom-1 -right-1 bg-orange-500 rounded-full w-5 h-5 flex items-center justify-center">
+          <div className="absolute -bottom-1 -right-1 bg-[#F97316] rounded-full w-5 h-5 flex items-center justify-center border border-[#2A2A2A]">
             <span className="text-white text-xs">🔥</span>
           </div>
         </div>
+
+        {/* Token Info and Stats */}
         <div className="flex-1 min-w-0">
-          <div className="flex items-start justify-between mb-2">
-            <div>
+          {/* Header row */}
+          <div className="flex items-start justify-between mb-3">
+            <div className="flex-1">
               <div className="flex items-center gap-2 mb-1">
-                <h3 className="text-white font-semibold text-lg">{token.name}</h3>
-                <span className="text-gray-400 text-sm">{token.symbol}</span>
-                <span className="bg-gray-700 text-gray-300 px-1 py-0.5 rounded text-xs">📋</span>
+                <h3 className="text-white font-semibold text-base">{token.name}</h3>
+                <span className="text-[#9CA3AF] text-sm">{token.symbol}</span>
+                <span className="bg-[#3A3A3A] text-[#9CA3AF] px-1.5 py-0.5 rounded text-xs">📋</span>
               </div>
-              <div className="text-green-400 text-sm">{token.age}s</div>
+              <div className="text-[#10B981] text-sm font-medium">{token.age}s</div>
             </div>
+            
             <div className="text-right">
-              <div className="text-blue-400 font-bold text-lg">MC ${token.mcValue}</div>
-              <div className="text-white text-lg">v ${token.priceValue}</div>
+              <div className="text-[#3B82F6] font-bold text-base">MC ${token.mcValue}</div>
+              <div className="text-white text-base font-medium">v ${token.priceValue}</div>
             </div>
           </div>
-          <div className="flex items-center gap-4 mb-3 text-sm text-gray-400">
-            <div className="flex items-center gap-1">
+
+          {/* Icon row */}
+          <div className="flex items-center gap-4 mb-3 text-sm text-[#9CA3AF]">
+            <div className="flex items-center gap-2">
               <span>🪶</span>
               <span>👑</span>
               <Search className="w-4 h-4" />
               <Users className="w-4 h-4" />
-              <span>{stats.users}</span>
+              <span className="font-medium">{stats.users}</span>
               <span>📈 {stats.upvotes}</span>
               <span>📉 {stats.downvotes}</span>
               <span>👑 {stats.crown}</span>
             </div>
           </div>
+
+          {/* Performance indicators */}
           <div className="grid grid-cols-6 gap-2 mb-3">
             <div className="flex items-center gap-1">
-              <span className="w-2 h-2 bg-red-500 rounded-full"></span>
-              <span className="text-red-400 text-sm">{token.priceChange24h}%</span>
+              <span className="w-2 h-2 bg-[#EF4444] rounded-full"></span>
+              <span className="text-[#EF4444] text-sm font-medium">{token.priceChange24h}%</span>
             </div>
             <div className="flex items-center gap-1">
-              <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-              <span className="text-green-400 text-sm">{Math.abs(token.change1h)}%</span>
-              <span className="text-gray-400 text-xs">1mo</span>
+              <span className="w-2 h-2 bg-[#10B981] rounded-full"></span>
+              <span className="text-[#10B981] text-sm font-medium">{Math.abs(token.change1h)}%</span>
+              <span className="text-[#9CA3AF] text-xs">1mo</span>
             </div>
             <div className="flex items-center gap-1">
-              <span className="w-2 h-2 bg-red-500 rounded-full"></span>
-              <span className="text-red-400 text-sm">{Math.abs(token.change5m)}%</span>
+              <span className="w-2 h-2 bg-[#EF4444] rounded-full"></span>
+              <span className="text-[#EF4444] text-sm font-medium">{Math.abs(token.change5m)}%</span>
             </div>
             <div className="flex items-center gap-1">
-              <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-              <span className="text-green-400 text-sm">0%</span>
+              <span className="w-2 h-2 bg-[#10B981] rounded-full"></span>
+              <span className="text-[#10B981] text-sm font-medium">0%</span>
             </div>
             <div className="flex items-center gap-1">
-              <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-              <span className="text-green-400 text-sm">0%</span>
+              <span className="w-2 h-2 bg-[#10B981] rounded-full"></span>
+              <span className="text-[#10B981] text-sm font-medium">0%</span>
             </div>
           </div>
+
+          {/* Bottom info */}
           <div className="flex items-center justify-between text-sm">
-            <div className="text-gray-400">{token.creator}</div>
-            <div className="flex items-center gap-4 text-gray-400">
-              <span className="flex items-center gap-1">
-                <span>F</span>
-                <div className="w-8 h-1 bg-gray-600 rounded">
-                  <div className="w-1/3 h-full bg-blue-400 rounded"></div>
+            <div className="text-[#9CA3AF] font-medium">{token.creator}</div>
+            <div className="flex items-center gap-4 text-[#9CA3AF]">
+              <span className="flex items-center gap-2">
+                <span className="font-medium">F</span>
+                <div className="w-8 h-1 bg-[#4B5563] rounded-full">
+                  <div className="w-1/3 h-full bg-[#3B82F6] rounded-full"></div>
                 </div>
-                <span>{stats.f}</span>
+                <span className="font-medium">{stats.f}</span>
               </span>
-              <span>TX {stats.tx}</span>
-              <div className="w-8 h-1 bg-gray-600 rounded">
-                <div className="w-2/3 h-full bg-green-400 rounded"></div>
+              <span className="font-medium">TX {stats.tx}</span>
+              <div className="w-8 h-1 bg-[#4B5563] rounded-full">
+                <div className="w-2/3 h-full bg-[#10B981] rounded-full"></div>
               </div>
             </div>
           </div>
@@ -359,31 +370,38 @@ interface ColumnSectionProps {
 
 const ColumnSection: React.FC<ColumnSectionProps> = ({ title, tokens, count, icon: Icon, isNewPairs = false }) => {
   return (
-    <div className="flex-1 border-r border-gray-800 last:border-r-0 h-[calc(100vh-280px)] flex flex-col">
-      <div className="flex items-center justify-between px-4 py-3 bg-gray-900/30 border-b border-gray-700 flex-shrink-0">
-        <div className="flex items-center space-x-2">
-          <Zap className="w-4 h-4 text-yellow-400" />
-          <h3 className="text-white font-medium text-sm">{title}</h3>
-          <span className="bg-gray-700 text-gray-300 px-1.5 py-0.5 rounded text-xs">{count}</span>
+    <div className="flex-1 h-[588px] flex flex-col bg-[#1A1A1A]">
+      {/* Column Header - Fixed at top */}
+      <div className="flex items-center justify-between px-6 py-4 bg-[#1A1A1A] border-b border-[#2A2A2A] flex-shrink-0">
+        <div className="flex items-center space-x-3">
+          <Zap className="w-5 h-5 text-[#3B82F6]" />
+          <h3 className="text-white font-semibold text-lg">{title}</h3>
+          <span className="bg-[#2A2A2A] text-[#9CA3AF] px-2 py-1 rounded-md text-sm font-medium">{count}</span>
         </div>
-        <div className="flex items-center space-x-2">
-          <div className="flex items-center space-x-1 text-xs text-gray-400">
-            <span className="bg-blue-600 text-white px-1.5 py-0.5 rounded text-xs">P1</span>
-            <span>P2</span>
-            <span>P3</span>
+        
+        <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-2 text-sm">
+            <span className="bg-[#3B82F6] text-white px-2 py-1 rounded text-xs font-medium">P1</span>
+            <span className="text-[#9CA3AF] px-2 py-1">P2</span>
+            <span className="text-[#9CA3AF] px-2 py-1">P3</span>
           </div>
-          <ChevronUp className="w-3 h-3 text-gray-400" />
+          <ChevronUp className="w-4 h-4 text-[#9CA3AF]" />
         </div>
       </div>
-      <div className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-800">
-        <div className="p-3">
+      
+      {/* Token List - Scrollable content area */}
+      <div className="flex-1 overflow-y-auto" style={{
+        scrollbarWidth: 'thin',
+        scrollbarColor: '#4B5563 #1A1A1A'
+      }}>
+        <div className="p-4 space-y-3">
           {tokens.map((token) => (
-            isNewPairs ?
+            isNewPairs ? 
               <NewPairsTokenCard key={token.id} token={token} /> :
               <TokenCard key={token.id} token={token} />
           ))}
           {tokens.length === 0 && (
-            <div className="text-center py-8 text-gray-500">
+            <div className="text-center py-8 text-[#9CA3AF]">
               No tokens in this category
             </div>
           )}
@@ -408,49 +426,52 @@ const Main: React.FC = () => {
     };
   }, [enhancedTokens, searchTerm]);
   return (
-    <div className="min-h-screen bg-gray-950 text-white pt-[72px] pb-[56px]">
-      {/* Stats Overview */}
-      <div className="px-6 py-4 border-b border-gray-800">
-        <div className="grid grid-cols-4 gap-4">
-          <div className="bg-gray-900/50 rounded-lg p-3">
-            <div className="text-sm text-gray-400">Total Tokens</div>
-            <div className="text-xl font-bold text-white">{enhancedTokens.length}</div>
-          </div>
-          <div className="bg-gray-900/50 rounded-lg p-3">
-            <div className="text-sm text-gray-400">New Pairs</div>
-            <div className="text-xl font-bold text-yellow-400">{categorizedTokens.new.length}</div>
-          </div>
-          <div className="bg-gray-900/50 rounded-lg p-3">
-            <div className="text-sm text-gray-400">Final Stretch</div>
-            <div className="text-xl font-bold text-orange-400">{categorizedTokens.final.length}</div>
-          </div>
-          <div className="bg-gray-900/50 rounded-lg p-3">
-            <div className="text-sm text-gray-400">Migrated</div>
-            <div className="text-xl font-bold text-blue-400">{categorizedTokens.migrated.length}</div>
+    <div className="min-h-screen bg-[#0A0A0A] text-white pt-[72px] pb-[56px] flex flex-col items-center">
+      {/* Card-like Frame for Columns */}
+      <div className="flex justify-center w-full" style={{marginBottom: '26px', marginTop: '32px'}}>
+        <div
+          className="bg-[#1A1A1A] rounded-2xl shadow-2xl border border-[#2A2A2A] flex overflow-hidden"
+          style={{ 
+            width: '1392px', 
+            height: '588px', 
+            maxWidth: '1392px', 
+            minWidth: '1392px', 
+            minHeight: '588px', 
+            position: 'relative', 
+            zIndex: 10,
+            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)'
+          }}
+        >
+          <div className="flex w-full h-full">
+            <div className="flex-none w-[462px] h-[588px] border-r border-[#2A2A2A]">
+              <ColumnSection
+                title="New Pairs"
+                tokens={categorizedTokens.new}
+                count={categorizedTokens.new.length}
+                icon={TrendingUp}
+                isNewPairs={true}
+              />
+            </div>
+            <div className="flex-none w-[462px] h-[588px] border-r border-[#2A2A2A]">
+              <ColumnSection
+                title="Final Stretch"
+                tokens={categorizedTokens.final}
+                count={categorizedTokens.final.length}
+                icon={TrendingUp}
+                isNewPairs={true}
+              />
+            </div>
+            <div className="flex-none w-[462px] h-[588px]">
+              <ColumnSection
+                title="Migrated"
+                tokens={categorizedTokens.migrated}
+                count={categorizedTokens.migrated.length}
+                icon={TrendingUp}
+                isNewPairs={true}
+              />
+            </div>
           </div>
         </div>
-      </div>
-      {/* Three Column Layout */}
-      <div className="flex min-h-[calc(100vh-280px)]">
-        <ColumnSection
-          title="New Pairs"
-          tokens={categorizedTokens.new}
-          count={categorizedTokens.new.length}
-          icon={TrendingUp}
-          isNewPairs={true}
-        />
-        <ColumnSection
-          title="Final Stretch"
-          tokens={categorizedTokens.final}
-          count={categorizedTokens.final.length}
-          icon={TrendingUp}
-        />
-        <ColumnSection
-          title="Migrated"
-          tokens={categorizedTokens.migrated}
-          count={categorizedTokens.migrated.length}
-          icon={TrendingUp}
-        />
       </div>
     </div>
   );
