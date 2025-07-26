@@ -5,9 +5,6 @@ import {
   Search,
   TrendingUp,
   Users,
-  Volume2,
-  VolumeX,
-  ChevronDown,
   ChevronUp,
   Zap,
   BarChart3,
@@ -494,32 +491,6 @@ const Main: React.FC = () => {
   
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-white flex flex-col items-center">
-      {/* Controls Section - Above Card Frame */}
-      <div className="w-full max-w-7xl flex justify-start mb-4 px-8 mt-4">
-        <div className="flex items-center space-x-3">
-          {/* Display Dropdown */}
-          <div className="flex items-center space-x-2 bg-[#1A1A1A] rounded-lg px-3 py-2 cursor-pointer hover:bg-[#2A2A2A] transition-colors">
-            <span className="text-sm text-[#9CA3AF]">Display</span>
-            <ChevronDown className="w-4 h-4 text-[#9CA3AF]" />
-          </div>
-          
-          {/* Volume Controls */}
-          <div className="flex items-center space-x-2 bg-[#1A1A1A] rounded-lg px-3 py-2 cursor-pointer hover:bg-[#2A2A2A] transition-colors">
-            <Volume2 className="w-4 h-4 text-[#9CA3AF] hover:text-white transition-colors" />
-          </div>
-          <div className="flex items-center space-x-2 bg-[#1A1A1A] rounded-lg px-3 py-2 cursor-pointer hover:bg-[#2A2A2A] transition-colors">
-            <VolumeX className="w-4 h-4 text-[#9CA3AF] hover:text-white transition-colors" />
-          </div>
-          
-          {/* Numerical Display */}
-          <div className="flex items-center space-x-2 bg-[#1A1A1A] rounded-lg px-3 py-2 cursor-pointer hover:bg-[#2A2A2A] transition-colors">
-            <span className="text-sm text-[#9CA3AF]">1</span>
-            <span className="text-sm text-[#9CA3AF]">=</span>
-            <span className="text-sm text-[#9CA3AF]">0</span>
-            <ChevronDown className="w-4 h-4 text-[#9CA3AF]" />
-          </div>
-        </div>
-      </div>
       
       {/* Card-like Frame for Columns - FIT ENTIRE VIEWPORT */}
       <div className="flex justify-center w-full overflow-hidden" style={{
