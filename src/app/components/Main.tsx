@@ -11,6 +11,8 @@ import {
   Globe,
   MessageCircle,
 } from "lucide-react";
+import TokenCard from "./TokenCard";
+import NewPairsTokenCard from "./NewPairsTokenCard";
 
 // --- Mock Tokens Data ---
 const mockTokens = [
@@ -181,119 +183,8 @@ const enhanceTokenData = (tokens: Token[]): EnhancedToken[] => {
   });
 };
 
-// --- Updated NewPairsTokenCard Component ---
-const NewPairsTokenCard: React.FC<{ token: EnhancedToken }> = ({ token }) => {
-  const [stats, setStats] = useState({
-    users: 0,
-    upvotes: 0,
-    downvotes: 0,
-    crown: 0,
-    f: '0.000',
-    tx: 0
-  });
-
-  // Generate random stats only on client side to prevent hydration mismatch
-  useEffect(() => {
-    const getRandomStats = () => ({
-      users: Math.floor(Math.random() * 50),
-      upvotes: Math.floor(Math.random() * 100),
-      downvotes: Math.floor(Math.random() * 50),
-      crown: Math.floor(Math.random() * 100),
-      f: (Math.random() * 0.5).toFixed(3),
-      tx: Math.floor(Math.random() * 200)
-    });
-    
-    setStats(getRandomStats());
-  }, []);
-  
-  return (
-    <div className="p-3 hover:bg-[#1A1A1A] transition-all duration-200" style={{
-      backgroundColor: '#101114'
-    }}>
-      <div className="flex items-start gap-3 min-w-0">
-        {/* Token Logo - Square with rounded corners */}
-        <div className="relative flex-shrink-0">
-          <img
-            src={`https://picsum.photos/48/48?random=${token.id}`}
-            alt={token.name}
-            className="w-12 h-12 rounded-lg object-cover"
-            style={{
-              minWidth: '48px',
-              minHeight: '48px'
-            }}
-          />
-        </div>
-
-        {/* Token Info and Stats */}
-        <div className="flex-1 min-w-0">
-          {/* Top Row - Token name, symbol, age badge, MC/V */}
-          <div className="flex items-start justify-between mb-2">
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2 mb-1">
-                <h3 className="text-white font-semibold text-base truncate">{token.name}</h3>
-                <span className="text-[#9CA3AF] text-sm truncate">{token.symbol}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-[#10B981] text-sm font-medium">{token.age}s</span>
-                <span className="text-white text-xs">🐕</span>
-              </div>
-            </div>
-            
-            <div className="text-right flex-shrink-0 ml-2">
-              <div className="text-white font-medium text-sm">MC ${token.mcValue}</div>
-              <div className="text-white text-sm">V ${token.priceValue}</div>
-            </div>
-          </div>
-
-          {/* Metrics row - Os, cat, search, users, chart, trophy, crown */}
-          <div className="flex items-center gap-2 mb-2 text-xs text-[#9CA3AF]">
-            <div className="flex items-center gap-1">
-              <span className="text-[#10B981] font-medium">Q</span>
-              <span>🐱</span>
-              <span>🔍</span>
-              <span>👥 {stats.users}</span>
-              <span>📊 {stats.upvotes}</span>
-              <span>🏆 {stats.downvotes}</span>
-              <span>👑 {stats.crown}</span>
-            </div>
-          </div>
-
-          {/* Percentage indicator cards - with timeframes */}
-          <div className="flex items-center gap-1 mb-2 flex-wrap">
-            <div className="bg-[#2A2A2A] rounded px-1.5 py-0.5 flex items-center gap-1">
-              <span className="text-[#EF4444] text-xs">🎯</span>
-              <span className="text-[#EF4444] text-xs">{token.priceChange24h}%</span>
-            </div>
-            <div className="bg-[#2A2A2A] rounded px-1.5 py-0.5 flex items-center gap-1">
-              <span className="text-[#10B981] text-xs">👨‍🍳</span>
-              <span className="text-[#10B981] text-xs">0%</span>
-              <span className="text-[#9CA3AF] text-xs">4d</span>
-            </div>
-            <div className="bg-[#2A2A2A] rounded px-1.5 py-0.5 flex items-center gap-1">
-              <span className="text-[#EF4444] text-xs">🎯</span>
-              <span className="text-[#EF4444] text-xs">{token.priceChange24h}%</span>
-            </div>
-          </div>
-
-          {/* Bottom info bar - F, TX, and SOL button */}
-          <div className="flex items-center justify-between text-xs">
-            <div className="flex items-center gap-2 text-[#9CA3AF]">
-              <span className="font-medium">F {stats.f}</span>
-              <span className="font-medium">TX {stats.tx}</span>
-            </div>
-            <button className="bg-[#3B82F6] text-white px-3 py-1 rounded text-xs font-medium hover:bg-[#2563EB] transition-colors flex items-center gap-1">
-              <span>⚡</span>
-              <span>0 SOL</span>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-// --- TokenCard Component (unchanged) ---
-const TokenCard: React.FC<{ token: EnhancedToken }> = ({ token }) => {
+// --- OldTokenCard Component (unchanged) ---
+const OldTokenCard: React.FC<{ token: EnhancedToken }> = ({ token }) => {
   const [currentPrice, setCurrentPrice] = useState(token.price);
   const [priceDirection, setPriceDirection] = useState<'up' | 'down' | null>(null);
 
@@ -457,8 +348,38 @@ const ColumnSection: React.FC<ColumnSectionProps> = ({
               marginBottom: '30px'
             }}>
               {isNewPairs ? 
-                <NewPairsTokenCard token={token} /> :
-                <TokenCard token={token} />
+                <NewPairsTokenCard token={{
+                  id: token.id.toString(),
+                  name: token.name,
+                  symbol: token.symbol,
+                  age: token.age,
+                  marketCap: token.marketCap.toString(),
+                  price: token.price.toString(),
+                  volume24h: token.volume24h.toString(),
+                  transactions24h: token.transactions24h.toString(),
+                  priceChange24h: token.priceChange24h.toString(),
+                  image: token.image,
+                  holders: token.holders.toString(),
+                  buys: token.buys.toString(),
+                  sells: token.sells.toString(),
+                  creator: token.creator
+                }} /> :
+                <TokenCard token={{
+                  id: token.id.toString(),
+                  name: token.name,
+                  symbol: token.symbol,
+                  age: token.age,
+                  marketCap: token.marketCap.toString(),
+                  price: token.price.toString(),
+                  volume24h: token.volume24h.toString(),
+                  transactions24h: token.transactions24h.toString(),
+                  priceChange24h: token.priceChange24h.toString(),
+                  image: token.image,
+                  holders: token.holders.toString(),
+                  buys: token.buys.toString(),
+                  sells: token.sells.toString(),
+                  creator: token.creator
+                }} />
               }
             </div>
           ))}
